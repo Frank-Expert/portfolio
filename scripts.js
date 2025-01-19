@@ -145,14 +145,7 @@ document.addEventListener('DOMContentLoaded', function() {
         });
     });
 
-    // International telephone input
-    const phoneInputField = document.querySelector("#phone");
-    if (phoneInputField) {
-        const phoneInput = window.intlTelInput(phoneInputField, {
-            utilsScript: "https://cdnjs.cloudflare.com/ajax/libs/intl-tel-input/17.0.8/js/utils.js",
-        });
-    }
-
+    
     //SKILL SECTION SCROLL MOVEMENT OF DIV CLASS IN DIFF DIRECTIONS
 
     const skillItems = document.querySelectorAll('.skill-item');
@@ -353,9 +346,24 @@ urls.forEach(({ url, containerId }) => renderPDF(url, containerId));
 
 
 //CONTACT FORM - LEAVE A MESSAGE
-// Contact Form Submission
+//CONTACT FORM - LEAVE A MESSAGE
 const form = document.querySelector("#contactForm");
 const statusTxt = form.querySelector(".button-area span");
+const titleSelect = document.querySelector("#title");
+const otherTitleField = document.querySelector("#otherTitleField");
+const otherTitleInput = document.querySelector("#otherTitle");
+const popup = document.querySelector("#popup");
+const popupMessage = document.querySelector("#popupMessage");
+const popupIcon = document.querySelector("#popupIcon");
+
+titleSelect.addEventListener("change", () => {
+    // Show the "Other" field if "Other" is selected
+    if (titleSelect.value === "Other") {
+        otherTitleField.style.display = "block";
+    } else {
+        otherTitleField.style.display = "none";
+    }
+});
 
 form.onsubmit = (e) => {
     e.preventDefault(); // Prevent form from submitting the traditional way
@@ -366,27 +374,53 @@ form.onsubmit = (e) => {
     let xhr = new XMLHttpRequest();
     xhr.open("POST", "message.php", true);
     xhr.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
-    
+
     xhr.onload = () => {
         if (xhr.status === 200) {
             let response = xhr.responseText;
             if (response.includes("Sorry") || response.includes("Enter a valid")) {
-                statusTxt.style.color = "red";
+                // Show Failure Popup
+                popup.classList.add("failure");
+                popupIcon.innerHTML = "&#10060;"; // Cross icon
+                popupMessage.innerText = "Sorry, failed to send your message!";
             } else {
+                // Show Success Popup
+                popup.classList.add("success");
+                popupIcon.innerHTML = "&#10004;"; // Tick icon
+                popupMessage.innerText = "Your message has been sent!";
                 form.reset();
                 setTimeout(() => statusTxt.style.display = "none", 3000);
             }
-            statusTxt.innerText = response;
+            popup.classList.add("show"); // Show the popup
+            setTimeout(() => popup.classList.remove("show"), 3000); // Hide after 3 seconds
         }
     };
 
     // Prepare form data
     let formData = new FormData(form);
-    let encodedData = new URLSearchParams(formData).toString(); // Encode data
+    if (titleSelect.value === "Other") {
+        formData.append("otherTitle", otherTitleInput.value); // Append custom title if "Other" is selected
+    }
 
     // Send the form data
+    let encodedData = new URLSearchParams(formData).toString(); // Encode data
     xhr.send(encodedData);
 };
+
+
+
+//LEAVE ME A MESSAGE, SELECT SPECIFY OTHER
+
+document.getElementById('title').addEventListener('change', function() {
+    var otherTitleField = document.getElementById('otherTitleField');
+    var titleValue = this.value;
+
+    if (titleValue === 'Other') {
+        otherTitleField.style.display = 'block'; // Show input field for "Other"
+    } else {
+        otherTitleField.style.display = 'none'; // Hide input field if not "Other"
+    }
+});
 
 
 

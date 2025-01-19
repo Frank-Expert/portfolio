@@ -10,10 +10,16 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST['email'] ?? '';
     $title = $_POST['title'] ?? '';
     $message = $_POST['message'] ?? '';
+    $otherTitle = $_POST['otherTitle'] ?? ''; // Get the "Other" title if present
 
     if (!empty($email) && !empty($message)) {
         if (filter_var($email, FILTER_VALIDATE_EMAIL)) {
-            $receiver = "greatmind5star@gmail.com";  // Receiver's email address
+            // If "Other" title is set, use it as the subject
+            if ($title === "Other" && !empty($otherTitle)) {
+                $title = $otherTitle;
+            }
+
+            $receiver = "ambetsafrankline@gmail.com";  // Receiver's email address
             $subject = "From: $name <$email>";
             $body = "Name: $name\nEmail: $email\nPhone: $phone\nTitle: $title\n\nMessage: $message\n\nRegards, \n$name";
             $headers = "From: $email";
