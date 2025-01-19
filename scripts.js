@@ -493,7 +493,39 @@ window.addEventListener("resize", function() {
 
 
 
-//FOOTER
+//FOOTER DATE DISPLAY automatically
 document.getElementById('year').textContent = new Date().getFullYear();
 
 
+//contact, skills and projects button
+document.addEventListener('DOMContentLoaded', function() {
+    // Button for "Get in Touch" (Contacts)
+    document.getElementById('getInTouchBtn').addEventListener('click', function() {  
+        const target = document.getElementById('contacts');  
+        if (target) {  
+            target.scrollIntoView({ behavior: 'smooth' });  
+        } else {  
+            console.error("Target section not found!");  
+        }  
+    });
+
+    // Button for "See My Projects" (Projects)
+    document.getElementById('seeProjectsBtn').addEventListener('click', function() {  
+        const target = document.getElementById('projects');  
+        if (target) {  
+            target.scrollIntoView({ behavior: 'smooth' });  
+        } else {  
+            console.error("Target section not found!");  
+        }  
+    });
+
+    // Button for "See My Sills" (Skills)
+    document.getElementById('seeProjectsBtn').addEventListener('click', function() {  
+        const target = document.getElementById('skills');  
+        if (target) {  
+            target.scrollIntoView({ behavior: 'smooth' });  
+        } else {  
+            console.error("Target section not found!");  
+        }  
+    });
+});
