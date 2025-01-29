@@ -2053,6 +2053,31 @@ h3 {
 
 
 
+/*Programming projects link style*/
+/* Style the Open Demo button */
+.project-details a {
+    display: inline-block;
+    padding: 10px 20px;
+    background-color: #0073e6; /* Primary button color */
+    color: white;
+    font-size: 14px;
+    font-weight: bold;
+    text-decoration: none;
+    border-radius: 5px; /* Rounded corners */
+    margin-top: 10px;
+    transition: background 0.3s ease-in-out, transform 0.2s ease-in-out;
+}
+
+/* Hover effect */
+.project-details a:hover {
+    background-color: #005bb5; /* Darker blue on hover */
+    transform: translateY(-2px); /* Slight lift effect */
+}
+
+/* Active effect (click) */
+.project-details a:active {
+    transform: translateY(1px);
+}
 
 
 
@@ -3866,7 +3891,7 @@ footer {
     
 
 
-    /* Contacts Section */
+    /* programming projects links style*/
 
 
 
