@@ -6,10 +6,9 @@ const animatedElements = document.querySelectorAll(
 );
 
 const observerOptions = {
-    threshold: isMobile ? 0 : 0.2,         // trigger immediately on mobile
-    rootMargin: isMobile ? "0px" : "0px 0px -50px 0px"
+    threshold: isMobile ? 0 : 0,           // trigger immediately
+    rootMargin: isMobile ? "0px" : "0px 0px -200px 0px"  // start 200px before element enters
 };
-
 const scrollObserver = new IntersectionObserver((entries, observer) => {
     entries.forEach(entry => {
         if (!entry.isIntersecting) return;
